@@ -1,0 +1,22 @@
+<h1>Products_index</h1>
+<%= link_to 'cart', carts_path %>
+<table class = "table" >
+  <tr>
+    <th>image</th>
+    <th>Title</th>
+    <th>description</th>
+    <th>price</th>
+    <th></th>
+  </tr>
+ 
+  <% @products.each do |product| %>
+    <tr>
+      <td><%= image_tag(product.avatar_url, height: '200', width: '150') if product.avatar? %></td>
+      <td><%= product.title %></td>
+      <td><%= product.description %></td>
+      <td><%= product.price %></td>
+      <td><%= link_to 'Show', product_path(product) %></td>
+      <td><%= link_to 'add_to_cart', add_to_cart_path(product) %></td>
+    </tr>
+  <% end %>
+</table>

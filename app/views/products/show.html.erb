@@ -1,0 +1,20 @@
+<p>
+  <strong>image:-</strong>
+  <%= image_tag(@product.avatar_url, height: '200', width: '150') if @product.avatar? %>
+</p>
+
+<p>
+  <strong>title</strong>
+  <%= @product.title %>
+</p>
+
+<p>
+  <strong>description</strong>
+  <%= @product.description %>
+</p>
+
+<p>
+  <strong>price</strong>
+  <%= @product.price %>
+</p>
+      

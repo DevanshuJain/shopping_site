@@ -1,0 +1,30 @@
+<% total = 0 %>
+<% quant = 0 %>
+<h1>lalalal</h1>
+
+<table class = "table" >
+  <tr>
+    <th>image</th>
+    <th>title</th>
+    <th>quantity</th>
+    <th>price</th>
+  </tr>
+ 
+  <% @carts.each do |cart| %>
+    
+    <% p=cart.product_id %>
+    <% q=Product.find(p) %>
+    <tr>
+      <td><%= image_tag(q.avatar_url, height: '200', width: '150') if q.avatar? %></td>
+      <td><%= q.title %></td>
+      <td><%= cart.quantity %></td>
+      <td><%= cart.price %></td>
+      <% quant = quant + cart.quantity %>
+      <% total = total + cart.price %>
+    </tr>
+  <% end %>
+</table>
+<% @order.total_price = total %>
+<strong>quantity:-</strong><%= quant %><br />
+<strong>price:-</strong><%= @order.total_price  %>
+<%= render 'charges/new' %>
