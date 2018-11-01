@@ -2,7 +2,11 @@ class ProductsController < ApplicationController
   load_and_authorize_resource
   
   def index
-    @products = Product.all
+    if current_user.has_role? :seller
+      seller_product_path
+    else
+      @products = Product.all
+    end
   end
 
 
@@ -42,6 +46,7 @@ class ProductsController < ApplicationController
   end
 
   def destroy
+    byebug
     @product=current_user.products.find(params[:id])
     if @product.destroy
       redirect_to seller_product_path

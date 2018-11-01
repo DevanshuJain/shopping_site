@@ -6,6 +6,7 @@ RSpec.describe "Sessions" do
     user = User.create!(email: "djain@bestpeers.com", password: "000000")
     
     sign_in user
+    byebug
     # get authenticated_root_path
     # expect(controller.current_user).to eq(user)
     

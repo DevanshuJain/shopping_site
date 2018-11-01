@@ -18,6 +18,20 @@ Rails.application.configure do
     'Cache-Control' => "public, max-age=#{1.hour.to_i}"
   }
 
+
+
+# config.before(:user) do
+#   DatabaseCleaner.clean_with(:truncation)
+#   DatabaseCleaner.strategy = :transaction
+# end
+
+# config.around(:each) do |example|
+#   DatabaseCleaner.cleaning do
+#     example.run
+#   end
+# end
+
+
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false

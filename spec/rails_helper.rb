@@ -5,6 +5,10 @@ require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
+require 'devise'
+require 'faker' 
+require 'rubocop-rspec'
+require 'database_cleaner'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -15,7 +19,7 @@ require 'rspec/rails'
 # end with _spec.rb. You can configure this pattern with the --pattern
 # option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
 #
-Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/support/*.rb')].each { |f| require f }
 # The following line is provided for convenience purposes. It has the downside
 # of increasing the boot-up time by auto-requiring all files in the support
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
@@ -33,6 +37,8 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
+
+
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e
@@ -40,13 +46,39 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
+config.fixture_path = "#{::Rails.root}/spec/fixtures"
+
+ config.use_transactional_fixtures = false
+
+  # config.before(:each) do
+  #   DatabaseCleaner.strategy = :transaction
+  #   DatabaseCleaner.clean_with(:truncation)
+  # end
+
+  # config.around(:all) do |example|
+  #   DatabaseCleaner.cleaning do
+  #     example.run
+  #   end
+  # end
+
+  # config.before(:suite) do
+  #   # DatabaseCleaner.strategy = :transaction
+  #   DatabaseCleaner.clean_with(:truncation)
+  # end
+
+  # config.around(:each) do |example|
+  #   DatabaseCleaner.cleaning do
+  #     example.run
+  #   end
+  # end
+
+  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
+  
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  # config.use_transactional_fixtures = false
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -68,8 +100,45 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 # config.include FactoryBot::Syntax::Methods
+
+# config.include Devise::Test::ControllerHelpers, type: :
+
+  # config.include Devise::Test::IntegrationHelpers, type: :request
+  # config.include RequestSpecHelper, type: :request
+# Devise::Test::ControllerHelpers
+# config.include Devise::TestHelpers, :type => :controller
+
+
+# config.before(:suite) do
+#   DatabaseCleaner.clean_with(:truncation)
+#   DatabaseCleaner.strategy = :transaction
+# end
+
+# config.around(:each) do |example|
+#   DatabaseCleaner.cleaning do
+#     example.run
+#   end
+# end
+
+
+# config.before(:each) do
+#  DatabaseCleaner.start
+# end
+
+# config.after(:each) do
+#  DatabaseCleaner.clean
+# end 
+
+# config.around(:each) do |example|
+#   DatabaseCleaner.start
+#   example.run
+#   DatabaseCleaner.clean
+# end
+
+
 config.include Devise::Test::ControllerHelpers, type: :controller
 
   config.include Devise::Test::IntegrationHelpers, type: :controller
   config.include RequestSpecHelper, type: :controller
+  # config.extend ControllerMacros, :type => :controller
 end

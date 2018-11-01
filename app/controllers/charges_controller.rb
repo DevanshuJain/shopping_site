@@ -6,7 +6,6 @@ class ChargesController < ApplicationController
   def create
     @amount = 0 
     quant = 0
-    
     if current_user.orders.where(status: false).exists? 
       @order = current_user.orders.where(status: false).last
     end

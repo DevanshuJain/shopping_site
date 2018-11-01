@@ -15,7 +15,8 @@ gem 'bootstrap'
 gem 'jquery-rails'
 gem 'stripe'
 gem 'factory_bot'
-
+gem 'faker'
+gem 'rubocop-rspec'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -44,7 +45,7 @@ gem 'jbuilder', '~> 2.5'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
-
+gem 'faker'
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
@@ -63,6 +64,7 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
+  gem 'database_cleaner'
   gem 'shoulda'
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
