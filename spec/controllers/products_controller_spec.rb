@@ -32,7 +32,8 @@ RSpec.describe ProductsController, :type => :controller do
       expect(response.status).to eq(200)
       put :update, params: {product: {"title" => "mswhyuer", "description"=>"juisss", "price"=> "147"},"id" => @product.id}
       expect(response.status).to eq(302)
-
+      delete :destroy, params: {"id" => @product}
+      expect(response.status).to eq(302)
     end    
   end
 end
