@@ -62,5 +62,14 @@ class CartsController < ApplicationController
       redirect_to products_path,:notice =>"product add succesfully"
     end
   end
+
+  def remove
+    if  current_user.orders.where(:status => false).exists?
+      p=current_user.orders.where(:status => false).last
+      p.carts.each do |p|
+        # byebug
+      end
+    end
+  end
   
 end

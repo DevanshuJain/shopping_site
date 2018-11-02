@@ -1,6 +1,6 @@
 <% total = 0 %>
 <% quant = 0 %>
-<h1>lalalal</h1>
+<h1>cart_product</h1>
 
 <table class = "table" >
   <tr>
@@ -19,6 +19,7 @@
       <td><%= q.title %></td>
       <td><%= cart.quantity %></td>
       <td><%= cart.price %></td>
+      <td><%= link_to 'remove', remove_path(cart)  %></td>
       <% quant = quant + cart.quantity %>
       <% total = total + cart.price %>
     </tr>
