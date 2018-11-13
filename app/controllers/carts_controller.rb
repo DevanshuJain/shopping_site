@@ -22,8 +22,8 @@ class CartsController < ApplicationController
         UserMailer.seller_email(@user).deliver_now
       end
       respond_to do |format|
-        format.html {redirect_to products_path,:notice =>"product placed succesfully"}
-        format.xml {redirect_to products_path,:notice =>"product placed succesfully"}
+        format.html {redirect_to products_index_path,:notice =>"product placed succesfully"}
+        format.xml {redirect_to products_index_path,:notice =>"product placed succesfully"}
       end
     end
   end
@@ -35,8 +35,7 @@ class CartsController < ApplicationController
     else
       @order = current_user.orders.new
       @order.save
-    end
-    
+    end  
     if @order.carts.exists?
       @order.carts.each do |c|
         if c.product_id == @product.id
@@ -47,29 +46,45 @@ class CartsController < ApplicationController
           return
         end
       end
-      @cart = @order.carts.new
-      @cart.quantity = "1"
-      @cart.price = @product.price
-      @cart.product_id = @product.id
-      @cart.save
-      redirect_to products_path,:notice =>"product add succesfully"
+      cart_make
     else
-      @cart = @order.carts.new
-      @cart.quantity = "1"
-      @cart.price = @product.price
-      @cart.product_id = @product.id
-      @cart.save
-      redirect_to products_path,:notice =>"product add succesfully"
+      cart_make
     end
+  end
+
+  def cart_make
+    @cart = @order.carts.new
+    @cart.quantity = "1"
+    @cart.price = @product.price
+    @cart.product_id = @product.id
+    @cart.save
+    redirect_to products_path,:notice =>"product add succesfully"
   end
 
   def remove
     if  current_user.orders.where(:status => false).exists?
       p=current_user.orders.where(:status => false).last
       p.carts.each do |p|
-        # byebug
+        @cart=Cart.find(params[:id])
+        if p.id == @cart.id
+          @cart.destroy
+          redirect_to carts_path,:notice =>"product remove succesfully"   
+        end
       end
     end
   end
-  
+
+  def update
+    # byebug
+    @cart=Cart.find(params[:id])
+    @cart.update_attributes(:quantity => params[:data])
+    @product=Product.find(@cart.product_id)
+    @a = @product.price*@cart.quantity
+    @cart.update_attributes(:price => @a)
+
+    respond_to do |format|
+      format.js 
+      format.html { redirect_to carts_path, notice: "Save comment completed!" } 
+    end
+  end
 end

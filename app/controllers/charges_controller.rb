@@ -29,7 +29,6 @@ class ChargesController < ApplicationController
       :currency    => 'usd',
       :metadata => {Order: "#{@order.id}"}
     )
-
   rescue Stripe::CardError => e
     flash[:error] = e.message
     redirect_to products_index_path

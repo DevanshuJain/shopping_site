@@ -1,31 +1,9 @@
-<% total = 0 %>
-<% quant = 0 %>
 <h1>cart_product</h1>
 
-<table class = "table" >
-  <tr>
-    <th>image</th>
-    <th>title</th>
-    <th>quantity</th>
-    <th>price</th>
-  </tr>
- 
+<div> 
   <% @carts.each do |cart| %>
-    
-    <% p=cart.product_id %>
-    <% q=Product.find(p) %>
-    <tr>
-      <td><%= image_tag(q.avatar_url, height: '200', width: '150') if q.avatar? %></td>
-      <td><%= q.title %></td>
-      <td><%= cart.quantity %></td>
-      <td><%= cart.price %></td>
-      <td><%= link_to 'remove', remove_path(cart)  %></td>
-      <% quant = quant + cart.quantity %>
-      <% total = total + cart.price %>
-    </tr>
+    <%= render 'form', cart: cart %>
   <% end %>
-</table>
-<% @order.total_price = total %>
-<strong>quantity:-</strong><%= quant %><br />
-<strong>price:-</strong><%= @order.total_price  %>
+</div>
+
 <%= render 'charges/new' %>

@@ -19,3 +19,29 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+
+$(document).on("change",".quantity_link", function(){
+  var id = $(this).data("id")
+  var quantity = $('#quantity_'+ id +  ' option:selected').val();
+  $.ajax({
+    type: 'PUT',
+    url: $(this).data("url"),
+    data : { data: quantity, format: 'js' }
+  });    
+});
+
+
+
+// $(document).on("turbolinks:load", function(){
+//   debugger
+//   $(".quantity_link").change(function(){
+//     var quantity = $('#quantity option:selected').val();
+//     $.ajax({
+//       type: 'PUT',
+//       url: $(this).data("url"),
+//       data : { data: quantity, format: 'js' }
+//     });    
+//   });
+// });
+

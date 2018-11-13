@@ -12,11 +12,6 @@ RSpec.feature "user management", :type => :feature do
     fill_in "City", :with => "indore"
     fill_in "State", :with => "m.p."
     fill_in "Pin no", :with => "452010"
-    byebug
-    # fill_in "role", :with => "452010"
-    
-    # choose('role', visible: false)
-
     click_button "Sign up"
     expect(page).to have_text("Welcome! You have signed up successfully.")
   end
