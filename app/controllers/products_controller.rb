@@ -9,9 +9,14 @@ class ProductsController < ApplicationController
     end
   end
 
-
+  
   def seller_product
     @products=current_user.products.all
+  end
+
+
+  def product_status
+    @products=current_user.products
   end
 
 
@@ -25,6 +30,9 @@ class ProductsController < ApplicationController
 
   def update
     @product=current_user.products.find(params[:id])
+    p=@product.all_quantity
+    @product.all_quantity=(p)+(params[:product][:available_quantity]).to_i
+
     if @product.update(product_params)
       redirect_to seller_product_path
     else
@@ -36,8 +44,9 @@ class ProductsController < ApplicationController
     @product=current_user.products.new
   end
 
-  def create 
+  def create
     @product = current_user.products.new(product_params)
+    @product.all_quantity=params[:product][:available_quantity]
     if @product.save
       redirect_to seller_product_path
     else
@@ -56,6 +65,6 @@ class ProductsController < ApplicationController
 
   private
   def product_params
-    params.require(:product).permit(:title, :description, :price, :avatar)
+    params.require(:product).permit(:title, :description, :price, :avatar, :available_quantity)
   end
 end

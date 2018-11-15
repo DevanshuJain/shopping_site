@@ -1,11 +1,10 @@
 <div id="cart_<%= cart.id %>">
-  <% total = 0 %>
-  <% quant = 0 %>
   <% p=cart.product_id %>
   <% q=Product.find(p) %>
 
     <strong>image:- </strong><%= image_tag(q.avatar_url, height: '200', width: '150') if q.avatar? %><br />
     <strong>title:- </strong><%= q.title %><br />
+    <strong>available:- </strong><%= q.available_quantity %><br />
     
     <div class="quantity_link", data-url = "<%= cart_path(cart.id) %>", data-id = "<%= cart.id.to_s %>">
       <strong>quantity:- </strong>
@@ -15,11 +14,8 @@
         <option value="2">2</option>
         <option value="3">3</option>
       </select>
-
     </div><br />
     <strong>price:- </strong><%= cart.price %><br />
     <%= link_to 'remove', remove_path(cart)  %>
-    <% quant = quant + cart.quantity %>
-    <% total = total + cart.price %>
   <br />
 </div>

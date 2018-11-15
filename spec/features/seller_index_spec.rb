@@ -19,5 +19,7 @@ RSpec.feature "user management", :type => :feature do
     expect("edit_page").present?
     have_link("Destroy", :href => "/products/#{q}")
     expect("seller_product").present?
+    have_link("product_status", :href => "/products/product_status")
+    expect("product_status").present?
   end
 end

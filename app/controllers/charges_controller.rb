@@ -4,6 +4,7 @@ class ChargesController < ApplicationController
   end
 
   def create
+    r=0
     @amount = 0 
     quant = 0
     if current_user.orders.where(status: false).exists? 
@@ -11,8 +12,19 @@ class ChargesController < ApplicationController
     end
     if @order.carts.exists?
       @order.carts.each do |p| 
-       quant = quant + p.quantity 
-       @amount = @amount + p.price 
+        @produc=Product.find(p.product_id)
+       
+        @product=Product.find(p.product_id)
+      
+        if p.quantity <= @product.available_quantity
+          r=(@product.available_quantity)-(p.quantity)
+          @product.update_attributes(:available_quantity => r)
+          quant = quant + p.quantity 
+          @amount = @amount + p.price 
+        else
+          redirect_to products_path, :notice => "product quantity are not available"
+          return
+        end
       end
     end
     @order.total_product = quant
@@ -31,6 +43,6 @@ class ChargesController < ApplicationController
     )
   rescue Stripe::CardError => e
     flash[:error] = e.message
-    redirect_to products_index_path
+    redirect_to root_path
   end
 end

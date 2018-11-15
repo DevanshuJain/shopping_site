@@ -15,7 +15,6 @@ RSpec.describe ProductsController, :type => :controller do
       # expect(response.content_type).to eq "text/html"
       # respond_to.should redirect_to '/users/sign_in'
       # sign_in user
-      byebug
     end
   end
 end

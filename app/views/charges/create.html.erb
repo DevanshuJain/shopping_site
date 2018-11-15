@@ -1,1 +1,5 @@
-<h2>Thanks, you paid </h2>
+<% if (@produc.available_quantity) > (@product.available_quantity) %>
+  <h2>Thanks, you paid </h2>
+<% else %>
+  <h2>something went wrong</h2>
+<% end %>

@@ -20,7 +20,6 @@
 //= require turbolinks
 //= require_tree .
 
-
 $(document).on("change",".quantity_link", function(){
   var id = $(this).data("id")
   var quantity = $('#quantity_'+ id +  ' option:selected').val();
@@ -30,8 +29,6 @@ $(document).on("change",".quantity_link", function(){
     data : { data: quantity, format: 'js' }
   });    
 });
-
-
 
 // $(document).on("turbolinks:load", function(){
 //   debugger

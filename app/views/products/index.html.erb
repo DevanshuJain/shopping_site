@@ -1,5 +1,6 @@
 <h1>Products_index</h1>
-<%= link_to 'cart', carts_path %>
+<%= link_to 'cart', carts_path %><br />
+<%= link_to 'my_order', my_order_path %>
 <table class = "table" >
   <tr>
     <th>image</th>
@@ -16,7 +17,11 @@
       <td><%= product.description %></td>
       <td><%= product.price %></td>
       <td><%= link_to 'Show', product_path(product) %></td>
-      <td><%= link_to 'add_to_cart', add_to_cart_path(product) %></td>
+      <% if  product.available_quantity > 0 %>
+        <td><%= link_to 'add_to_cart', add_to_cart_path(product) %></td>
+      <% else %>
+        <td> comming_soon </td>
+      <% end %>
     </tr>
   <% end %>
 </table>

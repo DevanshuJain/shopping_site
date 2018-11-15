@@ -1,0 +1,31 @@
+<h1>Products_status</h1>
+<% total_sell=0 %>
+<%= link_to 'back', seller_product_path %>
+
+
+<table class = "table" >
+  <tr>
+    <th>image</th>
+    <th>Title</th>
+    <th>price</th>
+    <th>available_quantity</th>
+    <th>product_sell</th>
+    <th>total_price</th>
+    <th></th>
+  </tr>
+ 
+  <% @products.each do |product| %>
+    <tr>
+    <% p=product.all_quantity-product.available_quantity %>
+      <td><%= image_tag(product.avatar_url, height: '200', width: '150') if product.avatar? %></td>
+      <td><%= product.title %></td>
+      <td><%= product.price %></td>
+      <td><%= product.available_quantity %></td>
+      <td><%= p %></td>
+      <td><%= p*product.price %></td>
+    </tr>
+    <% total_sell=total_sell+p*product.price %>
+  <% end %>
+  
+</table>
+<strong>total_amount:- </strong><%= total_sell %>

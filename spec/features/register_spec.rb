@@ -6,7 +6,7 @@ RSpec.feature "user management", :type => :feature do
 
     fill_in "Name", :with => "My Widget"
     fill_in "Mob no", :with => "0000000000"
-    fill_in "Email", :with => "djain@bestpeers.com"
+    fill_in "Email", :with => "dain@bestpeers.com"
     fill_in "Password", :with => "000000"
     fill_in "Password confirmation", :with => "000000"
     fill_in "City", :with => "indore"

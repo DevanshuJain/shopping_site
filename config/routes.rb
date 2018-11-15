@@ -15,7 +15,9 @@ Rails.application.routes.draw do
 
   get 'products/:id/add_to_cart' => 'carts#add_to_cart', :as => 'add_to_cart'
   get 'carts/:id/remove' => 'carts#remove', :as => 'remove'
+  get 'my_order' => 'carts#my_order', :as => 'my_order'
   
+  get 'product_status' => 'products#product_status', :as => 'product_status'
   get 'seller_product' => 'products#seller_product', :as => 'seller_product'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
