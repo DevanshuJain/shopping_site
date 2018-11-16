@@ -14,6 +14,16 @@ class CartsController < ApplicationController
     @orders=current_user.orders.where(:status => true)
   end
 
+  def show
+    @order=Order.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "show"   # Excluding ".pdf" extension.
+      end
+    end
+  end
+
 
   def callback
     if params[:data][:object][:metadata][:Order]

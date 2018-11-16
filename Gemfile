@@ -17,6 +17,11 @@ gem 'stripe'
 gem 'factory_bot'
 gem 'faker'
 gem 'rubocop-rspec'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+gem 'prawn-rails'
+gem 'google_sign_in'
+
 # gem 'capybara'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'

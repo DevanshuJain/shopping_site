@@ -13,6 +13,7 @@
       <td><%= order.id %></td>
       <td><%= pro.title %></td>    
       <td> done </td>
+      <td><%= link_to "Get PDF", cart_path(order, format: :pdf), target: "_blank" %></td>
     </tr>
   <% end %>
 </table>
